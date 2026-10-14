@@ -1,8 +1,9 @@
 # College Timetable Generation System
 
 Automatically assigns subjects, faculty, classrooms, laboratories and student sections
-to weekly slots using Google OR-Tools CP-SAT, satisfying hard constraints (no faculty,
-room or section clashes) and reporting why a timetable is infeasible when it is.
+to available weekly slots while satisfying constraints and avoiding conflicts.
+The planned solver uses Google OR-Tools CP-SAT to guarantee zero faculty, room and
+section double-bookings, and to report why a timetable is infeasible when it is.
 
 ## Team
 
@@ -13,19 +14,22 @@ room or section clashes) and reporting why a timetable is infeasible when it is.
 | Rishi Bharadwaj | PES1UG24AM223 |
 | Rohit Chaki | PES1UG24AM228 |
 
+## Phase 1 documents
+
+| Document | File |
+|---|---|
+| Software Requirements Specification (SRS) | [SRS_College_Timetable_Generation_System.pdf](SRS_College_Timetable_Generation_System.pdf) |
+| Software Architecture and Design (SAD) | [SAD_College_Timetable_Generation_System.pdf](SAD_College_Timetable_Generation_System.pdf) |
+| Software Test Plan (STP) | [STP_College_Timetable_Generation_System.pdf](STP_College_Timetable_Generation_System.pdf) |
+
 ## Repository layout
 ```
+.github/workflows/ci.yml   CI: runs pytest on every pull request and push to main
 backend/
-  app/
-    solver/            CP-SAT model, infeasibility diagnostics, clash verifier
-    services/          Sample data / application logic
-    models/            Persistence models (to be added)
-    export/            PDF / Excel export (to be added)
-    cli.py             Command-line demo
-  tests/
-    unit/              Tests named after STP IDs (TC-xxx-nn)
-.github/workflows/ci.yml   CI: runs pytest on every PR and push to main
-requirements.txt  LICENSE  .gitignore  pytest.ini
+  app/                     Application package (solver, services, models, export to be added)
+  tests/unit/              Unit tests (named after STP test case IDs)
+*.pdf                      Phase 1 documents (SRS, SAD, STP)
+requirements.txt  pytest.ini  LICENSE  .gitignore  CONTRIBUTING.md
 ```
 
 ## Team setup (once per teammate)
@@ -37,10 +41,9 @@ python -m venv .venv
 .venv\Scripts\activate          # Windows   (Linux/macOS: source .venv/bin/activate)
 pip install -r requirements.txt
 pytest
-cd backend && python -m app.cli      # demo run (available once all feature branches are merged)
 ```
 
-## Workflow for every feature
+## Workflow for every change
 ```
 main -> git pull -> feature/<name> -> add code + test -> pytest
      -> git add . -> git commit -> git push
@@ -48,9 +51,9 @@ main -> git pull -> feature/<name> -> add code + test -> pytest
      -> 1 teammate approval -> merge -> everyone pulls main
 ```
 Rules:
-- `main` is protected: no direct pushes; PR + 1 approval + passing CI required.
+- `main` is protected: no direct pushes; a PR, 1 approval and passing CI are required.
 - Every feature is developed on its own branch and has an appropriate test case.
 - Run `pytest` locally before pushing.
 - After every merge, everyone runs `git checkout main && git pull`.
 
-See CONTRIBUTING.md for branch ownership and the ruleset settings.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full team workflow.
