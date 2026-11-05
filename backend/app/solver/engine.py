@@ -1,4 +1,4 @@
-"""CP-SAT timetable model - stage TTG-6: no faculty / room / section clashes (SRS TT-F-005..007)."""
+"""CP-SAT timetable model - stage TTG-7: + room capacity and lab / classroom matching (SRS TT-F-007, TT-F-008)."""
 import time
 from collections import defaultdict
 from ortools.sat.python import cp_model
@@ -7,6 +7,7 @@ from .models import Problem, Assignment, Result
 
 def solve(p: Problem) -> Result:
     t0 = time.time()
+    sec = {s.id: s for s in p.sections}
     m = cp_model.CpModel()
 
     # start[i, d, t, room] == 1  <=>  course i is held at day d, period t, in that room
@@ -15,9 +16,11 @@ def solve(p: Problem) -> Result:
     per_course = defaultdict(list)
 
     for i, c in enumerate(p.courses):
+        # TT-F-007/008: room seats the whole section; labs only in lab rooms, theory only in classrooms
+        rooms = [r for r in p.rooms if r.is_lab == c.is_lab and r.capacity >= sec[c.section_id].strength]
         for d in range(p.days):
             for t in range(p.periods):
-                for r in p.rooms:
+                for r in rooms:
                     v = m.NewBoolVar(f"s_{i}_{d}_{t}_{r.id}")
                     start[i, d, t, r.id] = v
                     per_course[i].append(v)
