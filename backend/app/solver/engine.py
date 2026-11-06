@@ -1,4 +1,4 @@
-"""CP-SAT timetable model - stage TTG-9: + complete weekly generation with diagnostics and time limit (SRS TT-F-009, TT-F-010)."""
+"""CP-SAT timetable model - hard constraints (SRS TT-F-005..009, TT-F-002 unavailability)."""
 import time
 from collections import defaultdict
 from ortools.sat.python import cp_model
@@ -12,6 +12,7 @@ def solve(p: Problem) -> Result:
     if issues:
         return Result("INFEASIBLE", diagnostics=issues, runtime_seconds=time.time() - t0)
 
+    fac = {f.id: f for f in p.faculty}
     sec = {s.id: s for s in p.sections}
     m = cp_model.CpModel()
 
@@ -25,9 +26,12 @@ def solve(p: Problem) -> Result:
         L = c.block_length if c.is_lab else 1                 # TT-F-008: a lab is 2 or 3 consecutive periods
         # TT-F-007/008: room seats the whole section; labs only in lab rooms, theory only in classrooms
         rooms = [r for r in p.rooms if r.is_lab == c.is_lab and r.capacity >= sec[c.section_id].strength]
+        blocked = fac[c.faculty_id].unavailable              # TT-F-002: leave / blocked slots
         for d in range(p.days):
             for t in range(p.periods - L + 1):                # a block never runs past the end of the day
                 cells = [(d, t + k) for k in range(L)]
+                if any(cell in blocked for cell in cells):
+                    continue                                      # prune impossible starts
                 for r in rooms:
                     v = m.NewBoolVar(f"s_{i}_{d}_{t}_{r.id}")
                     start[i, d, t, r.id] = v
