@@ -1,4 +1,4 @@
-"""CP-SAT timetable model - stage TTG-7: + room capacity and lab / classroom matching (SRS TT-F-007, TT-F-008)."""
+"""CP-SAT timetable model - stage TTG-8: + contiguous lab blocks (SRS TT-F-008)."""
 import time
 from collections import defaultdict
 from ortools.sat.python import cp_model
@@ -16,17 +16,20 @@ def solve(p: Problem) -> Result:
     per_course = defaultdict(list)
 
     for i, c in enumerate(p.courses):
+        L = c.block_length if c.is_lab else 1                 # TT-F-008: a lab is 2 or 3 consecutive periods
         # TT-F-007/008: room seats the whole section; labs only in lab rooms, theory only in classrooms
         rooms = [r for r in p.rooms if r.is_lab == c.is_lab and r.capacity >= sec[c.section_id].strength]
         for d in range(p.days):
-            for t in range(p.periods):
+            for t in range(p.periods - L + 1):                # a block never runs past the end of the day
+                cells = [(d, t + k) for k in range(L)]
                 for r in rooms:
                     v = m.NewBoolVar(f"s_{i}_{d}_{t}_{r.id}")
                     start[i, d, t, r.id] = v
                     per_course[i].append(v)
-                    cover["room", r.id, d, t].append(v)
-                    cover["fac", c.faculty_id, d, t].append(v)
-                    cover["sec", c.section_id, d, t].append(v)
+                    for (dd, tt) in cells:
+                        cover["room", r.id, dd, tt].append(v)
+                        cover["fac", c.faculty_id, dd, tt].append(v)
+                        cover["sec", c.section_id, dd, tt].append(v)
 
     for i, c in enumerate(p.courses):
         m.Add(sum(per_course[i]) == c.sessions_per_week)      # every required hour is placed
@@ -44,6 +47,7 @@ def solve(p: Problem) -> Result:
         for (i, d, t, r), v in start.items():
             if s.Value(v):
                 c = p.courses[i]
-                out.append(Assignment(c.code, c.section_id, c.faculty_id, r, d, t, 1))
+                out.append(Assignment(c.code, c.section_id, c.faculty_id, r, d, t,
+                                      c.block_length if c.is_lab else 1))
         return Result(s.StatusName(status), out, [], elapsed)
     return Result("INFEASIBLE" if status == cp_model.INFEASIBLE else "TIMEOUT", [], [], elapsed)
