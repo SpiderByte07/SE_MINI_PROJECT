@@ -1,4 +1,4 @@
-"""CP-SAT timetable model - hard constraints (SRS TT-F-005..009, TT-F-002 unavailability)."""
+"""CP-SAT timetable model - hard constraints (SRS TT-F-005..009, TT-F-002) and soft constraints (TT-F-011)."""
 import time
 from collections import defaultdict
 from ortools.sat.python import cp_model
@@ -21,6 +21,7 @@ def solve(p: Problem) -> Result:
     cover = defaultdict(list)       # (kind, id, d, t) -> literals that use that cell
     per_course = defaultdict(list)
     per_course_day = defaultdict(list)
+    sec_theory = defaultdict(list)   # theory literals per (section, day, period)
 
     for i, c in enumerate(p.courses):
         L = c.block_length if c.is_lab else 1                 # TT-F-008: a lab is 2 or 3 consecutive periods
@@ -41,6 +42,8 @@ def solve(p: Problem) -> Result:
                         cover["room", r.id, dd, tt].append(v)
                         cover["fac", c.faculty_id, dd, tt].append(v)
                         cover["sec", c.section_id, dd, tt].append(v)
+                        if not c.is_lab:
+                            sec_theory[c.section_id, dd, tt].append(v)
 
     for i, c in enumerate(p.courses):
         m.Add(sum(per_course[i]) == c.sessions_per_week)      # every required hour is placed
@@ -50,6 +53,42 @@ def solve(p: Problem) -> Result:
     for lits in cover.values():                               # TT-F-005/006/007: nothing is double-booked
         if len(lits) > 1:
             m.AddAtMostOne(lits)
+
+    # TT-F-011 (a): minimise faculty idle gaps between lectures on the same day
+    penalties = []
+    for f in fac:
+        for d in range(p.days):
+            occ = [cover.get(("fac", f, d, t), []) for t in range(p.periods)]
+            if not any(occ):
+                continue
+            before = [m.NewBoolVar(f"b_{f}_{d}_{t}") for t in range(p.periods)]
+            after = [m.NewBoolVar(f"a_{f}_{d}_{t}") for t in range(p.periods)]
+            for t in range(p.periods):
+                if t > 0:
+                    m.Add(before[t] >= sum(occ[t - 1]))
+                    m.Add(before[t] >= before[t - 1])
+                else:
+                    m.Add(before[0] == 0)
+                if t < p.periods - 1:
+                    m.Add(after[t] >= sum(occ[t + 1]))
+                    m.Add(after[t] >= after[t + 1])
+                else:
+                    m.Add(after[t] == 0)
+                idle = m.NewBoolVar(f"i_{f}_{d}_{t}")
+                m.Add(idle >= before[t] + after[t] - 1 - sum(occ[t]))
+                penalties.append(idle)
+
+    # TT-F-011 (b): avoid heavy theory runs - 3 consecutive theory periods for a section
+    for sid in sec:
+        for d in range(p.days):
+            for t in range(p.periods - 2):
+                w = [sec_theory.get((sid, d, t + k), []) for k in range(3)]
+                if all(w):
+                    viol = m.NewBoolVar(f"h_{sid}_{d}_{t}")
+                    m.Add(viol >= sum(w[0]) + sum(w[1]) + sum(w[2]) - 2)
+                    penalties.append(viol)
+    if penalties:
+        m.Minimize(sum(penalties))
 
     s = cp_model.CpSolver()
     s.parameters.max_time_in_seconds = max(1.0, p.timeout_seconds - (time.time() - t0))
@@ -64,7 +103,8 @@ def solve(p: Problem) -> Result:
                 c = p.courses[i]
                 out.append(Assignment(c.code, c.section_id, c.faculty_id, r, d, t,
                                       c.block_length if c.is_lab else 1))
-        return Result(s.StatusName(status), out, [], elapsed)
+        penalty = int(round(s.ObjectiveValue())) if penalties else 0
+        return Result(s.StatusName(status), out, [], elapsed, penalty)
     if status == cp_model.INFEASIBLE:
         return Result("INFEASIBLE", [], ["No conflict-free timetable exists under current constraints."], elapsed)
     return Result("TIMEOUT", [], [f"Solver stopped after {p.timeout_seconds}s without a solution."], elapsed)
