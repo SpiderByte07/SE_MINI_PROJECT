@@ -1,4 +1,4 @@
-"""CP-SAT timetable model - hard constraints (SRS TT-F-005..009, TT-F-002) and soft constraints (TT-F-011)."""
+"""CP-SAT timetable model - hard constraints (SRS TT-F-005..009, TT-F-002) soft constraints (TT-F-011) and pinned slots (TT-F-014)."""
 import time
 from collections import defaultdict
 from ortools.sat.python import cp_model
@@ -53,6 +53,17 @@ def solve(p: Problem) -> Result:
     for lits in cover.values():                               # TT-F-005/006/007: nothing is double-booked
         if len(lits) > 1:
             m.AddAtMostOne(lits)
+
+    # TT-F-014: pinned slots stay fixed
+    for pin in p.pins:
+        idx = [i for i, c in enumerate(p.courses)
+               if c.code == pin.course_code and c.section_id == pin.section_id]
+        lits = [v for (i, d, t, _), v in start.items()
+                if i in idx and d == pin.day and t == pin.period]
+        if not lits:
+            return Result("INFEASIBLE", diagnostics=[f"Pin for {pin.course_code} is not placeable."],
+                          runtime_seconds=time.time() - t0)
+        m.Add(sum(lits) == 1)
 
     # TT-F-011 (a): minimise faculty idle gaps between lectures on the same day
     penalties = []
