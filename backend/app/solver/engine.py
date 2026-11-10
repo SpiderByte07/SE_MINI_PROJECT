@@ -98,24 +98,46 @@ def solve(p: Problem) -> Result:
                     viol = m.NewBoolVar(f"h_{sid}_{d}_{t}")
                     m.Add(viol >= sum(w[0]) + sum(w[1]) + sum(w[2]) - 2)
                     penalties.append(viol)
-    if penalties:
-        m.Minimize(sum(penalties))
 
+    def left():
+        return p.timeout_seconds - (time.time() - t0)
+
+    # Phase 1: find ANY clash-free timetable quickly (hard constraints only) - SRS TT-NF-001
     s = cp_model.CpSolver()
-    s.parameters.max_time_in_seconds = max(1.0, p.timeout_seconds - (time.time() - t0))
+    s.parameters.max_time_in_seconds = max(1.0, left())
     s.parameters.num_workers = 4
     status = s.Solve(m)
-    elapsed = time.time() - t0
-
-    if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
-        out = []
-        for (i, d, t, r), v in start.items():
-            if s.Value(v):
-                c = p.courses[i]
-                out.append(Assignment(c.code, c.section_id, c.faculty_id, r, d, t,
-                                      c.block_length if c.is_lab else 1))
-        penalty = int(round(s.ObjectiveValue())) if penalties else 0
-        return Result(s.StatusName(status), out, [], elapsed, penalty)
     if status == cp_model.INFEASIBLE:
-        return Result("INFEASIBLE", [], ["No conflict-free timetable exists under current constraints."], elapsed)
-    return Result("TIMEOUT", [], [f"Solver stopped after {p.timeout_seconds}s without a solution."], elapsed)
+        return Result("INFEASIBLE", [], ["No conflict-free timetable exists under current constraints."],
+                      time.time() - t0)
+    if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+        return Result("TIMEOUT", [], [f"Solver stopped after {p.timeout_seconds}s without a solution."],
+                      time.time() - t0)
+    values = {key: s.Value(v) for key, v in start.items()}
+    name = "OPTIMAL"
+    penalty = 0
+
+    # Phase 2: use the remaining time to reduce the soft penalty (TT-F-011), warm-started
+    if penalties:
+        name = "FEASIBLE"
+        penalty = sum(s.Value(x) for x in penalties)      # upper bound if phase 2 cannot run
+        if left() >= 1.0:
+            for key, v in start.items():
+                m.AddHint(v, values[key])
+            m.Minimize(sum(penalties))
+            s2 = cp_model.CpSolver()
+            s2.parameters.max_time_in_seconds = left()
+            s2.parameters.num_workers = 4
+            st2 = s2.Solve(m)
+            if st2 in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+                values = {key: s2.Value(v) for key, v in start.items()}
+                penalty = int(round(s2.ObjectiveValue()))
+                name = s2.StatusName(st2)
+
+    out = []
+    for (i, d, t, r), v in values.items():
+        if v:
+            c = p.courses[i]
+            out.append(Assignment(c.code, c.section_id, c.faculty_id, r, d, t,
+                                  c.block_length if c.is_lab else 1))
+    return Result(name, out, [], time.time() - t0, penalty)
