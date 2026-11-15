@@ -1,0 +1,85 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.7.0 -- C:\Users\ayush\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default'
+metadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.26200-SP0', 'Packages': {'pytest': '9.1.1', 'pluggy': '1.7.0'}, 'Plugins': {'anyio': '4.16.0', 'hypothesis': '6.170.15', 'cov': '7.1.0', 'html': '4.2.0', 'metadata': '3.1.1'}, 'JAVA_HOME': 'C:\\JAVA\\jdk1.8.0_202'}
+rootdir: C:\Users\ayush\OneDrive\Desktop\SEM5\SE_LAB\MiniProject\SE_MINI_PROJECT-latest
+configfile: pytest.ini
+testpaths: backend/tests
+plugins: anyio-4.16.0, hypothesis-6.170.15, cov-7.1.0, html-4.2.0, metadata-3.1.1
+collecting ... collected 59 items
+
+backend/tests/test_web_integration.py::test_ui_is_served_with_security_headers PASSED [  1%]
+backend/tests/test_web_integration.py::test_schedule_requires_login PASSED [  3%]
+backend/tests/test_web_integration.py::test_schedule_views_filter_and_reject_bad_view PASSED [  5%]
+backend/tests/test_web_integration.py::test_drag_move_succeeds_and_records_audit_event PASSED [  6%]
+backend/tests/test_web_integration.py::test_drag_move_rejects_conflict_and_out_of_range PASSED [  8%]
+backend/tests/test_web_integration.py::test_pdf_and_excel_exports_return_expected_files PASSED [ 10%]
+backend/tests/test_web_integration.py::test_generation_job_can_be_polled PASSED [ 11%]
+backend/tests/test_web_integration.py::test_login_rejects_bad_credentials PASSED [ 13%]
+backend/tests/test_web_integration.py::test_https_can_be_required_by_configuration PASSED [ 15%]
+backend/tests/unit/test_diagnostics.py::test_clean_problem_has_no_diagnostics PASSED [ 16%]
+backend/tests/unit/test_diagnostics.py::test_tc_gen_02_overloaded_week_reports_bottleneck PASSED [ 18%]
+backend/tests/unit/test_diagnostics.py::test_room_capacity_shortfall_is_named PASSED [ 20%]
+backend/tests/unit/test_diagnostics.py::test_unknown_faculty_is_reported PASSED [ 22%]
+backend/tests/unit/test_engine_clashes.py::test_tc_cst_01_no_faculty_double_booking PASSED [ 23%]
+backend/tests/unit/test_engine_clashes.py::test_tc_cst_02_no_room_collisions PASSED [ 25%]
+backend/tests/unit/test_engine_clashes.py::test_tc_cst_03_no_section_clashes PASSED [ 27%]
+backend/tests/unit/test_engine_clashes.py::test_all_required_sessions_are_placed PASSED [ 28%]
+backend/tests/unit/test_engine_generation.py::test_tc_gen_01_generates_complete_schedule PASSED [ 30%]
+backend/tests/unit/test_engine_generation.py::test_generated_timetable_has_zero_clashes PASSED [ 32%]
+backend/tests/unit/test_engine_generation.py::test_course_is_not_repeated_on_the_same_day PASSED [ 33%]
+backend/tests/unit/test_engine_generation.py::test_tc_gen_02_infeasible_problem_reports_diagnostics PASSED [ 35%]
+backend/tests/unit/test_engine_generation.py::test_runtime_is_reported PASSED [ 37%]
+backend/tests/unit/test_engine_labs.py::test_tc_cst_04_lab_blocks_are_contiguous_in_lab_rooms PASSED [ 38%]
+backend/tests/unit/test_engine_labs.py::test_lab_block_never_splits_across_days PASSED [ 40%]
+backend/tests/unit/test_engine_labs.py::test_multi_period_blocks_stay_clash_free PASSED [ 42%]
+backend/tests/unit/test_engine_rooms.py::test_tc_cst_03_room_capacity_respected PASSED [ 44%]
+backend/tests/unit/test_engine_rooms.py::test_theory_in_classrooms_and_labs_in_lab_rooms PASSED [ 45%]
+backend/tests/unit/test_engine_unavailability.py::test_tc_res_02_blocked_slots_are_never_assigned PASSED [ 47%]
+backend/tests/unit/test_engine_unavailability.py::test_whole_day_leave_is_respected PASSED [ 49%]
+backend/tests/unit/test_models.py::test_models_are_immutable PASSED      [ 50%]
+backend/tests/unit/test_models.py::test_problem_defaults PASSED          [ 52%]
+backend/tests/unit/test_models.py::test_tc_res_03_room_capacity_validated_on_entry PASSED [ 54%]
+backend/tests/unit/test_models.py::test_section_enrollment_and_semester_validated PASSED [ 55%]
+backend/tests/unit/test_models.py::test_course_rules_from_srs PASSED     [ 57%]
+backend/tests/unit/test_models.py::test_faculty_hours_validated PASSED   [ 59%]
+backend/tests/unit/test_models.py::test_demo_problem_is_consistent PASSED [ 61%]
+backend/tests/unit/test_performance.py::test_tc_perf_01_thirty_sections_within_15_seconds PASSED [ 62%]
+backend/tests/unit/test_pins.py::test_tc_mod_02_pinned_slot_is_preserved PASSED [ 64%]
+backend/tests/unit/test_pins.py::test_unplaceable_pin_is_reported_infeasible PASSED [ 66%]
+backend/tests/unit/test_registry.py::test_tc_res_01_course_created_and_persisted PASSED [ 67%]
+backend/tests/unit/test_registry.py::test_tc_res_02_faculty_unavailability_stored PASSED [ 69%]
+backend/tests/unit/test_registry.py::test_update_course PASSED           [ 71%]
+backend/tests/unit/test_registry.py::test_delete_course_and_room PASSED  [ 72%]
+backend/tests/unit/test_registry.py::test_duplicate_rejected PASSED      [ 74%]
+backend/tests/unit/test_registry.py::test_course_must_link_to_existing_faculty_and_section PASSED [ 76%]
+backend/tests/unit/test_registry.py::test_cannot_delete_faculty_or_section_in_use PASSED [ 77%]
+backend/tests/unit/test_registry.py::test_to_problem_collects_everything PASSED [ 79%]
+backend/tests/unit/test_smoke.py::test_project_imports PASSED            [ 81%]
+backend/tests/unit/test_soft_constraints.py::test_tc_gen_03_faculty_idle_gaps_are_minimised PASSED [ 83%]
+backend/tests/unit/test_soft_constraints.py::test_soft_penalty_counts_unavoidable_idle_periods PASSED [ 84%]
+backend/tests/unit/test_validation.py::test_tc_mod_01_faculty_clash_is_rejected PASSED [ 86%]
+backend/tests/unit/test_validation.py::test_valid_move_returns_no_conflicts PASSED [ 88%]
+backend/tests/unit/test_validation.py::test_room_double_booking_detected PASSED [ 89%]
+backend/tests/unit/test_validation.py::test_section_double_booking_detected PASSED [ 91%]
+backend/tests/unit/test_validation.py::test_capacity_and_room_type_checked PASSED [ 93%]
+backend/tests/unit/test_validation.py::test_faculty_unavailability_and_bounds_checked PASSED [ 94%]
+backend/tests/unit/test_verify.py::test_clean_schedule_has_zero_clashes PASSED [ 96%]
+backend/tests/unit/test_verify.py::test_detects_faculty_room_and_section_clash PASSED [ 98%]
+backend/tests/unit/test_verify.py::test_multi_period_block_overlap_detected PASSED [100%]
+
+============================== warnings summary ===============================
+..\..\..\..\..\..\AppData\Local\Programs\Python\Python311\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\ayush\AppData\Local\Programs\Python\Python311\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: C:\Users\ayush\OneDrive\Desktop\SEM5\SE_LAB\MiniProject\SE_MINI_PROJECT-latest\docs\reports\junit.xml -
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+Coverage HTML written to dir C:\Users\ayush\OneDrive\Desktop\SEM5\SE_LAB\MiniProject\SE_MINI_PROJECT-latest\docs\reports\coverage-html
+Coverage XML written to file C:\Users\ayush\OneDrive\Desktop\SEM5\SE_LAB\MiniProject\SE_MINI_PROJECT-latest\docs\reports\coverage.xml
+- Generated html report: file:///C:/Users/ayush/OneDrive/Desktop/SEM5/SE_LAB/MiniProject/SE_MINI_PROJECT-latest/docs/reports/test-report.html -
+======================= 59 passed, 1 warning in 27.81s ========================
