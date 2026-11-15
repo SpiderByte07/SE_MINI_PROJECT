@@ -1,0 +1,156 @@
+%PDF-1.4
+%1234
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 6 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 5637 >>
+stream
+0.1 0.2 0.36 rg
+0.12 0.16 0.22 rg
+BT /F2 18 Tf 1 0 0 1 52 790 Tm (Software Test Plan - Test Results Addendum) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 9 Tf 1 0 0 1 52 770 Tm (College Timetable Generation System | Version 1.2 | 15 November 2026) Tj ET
+0.19 0.35 0.56 RG 0.7 w 52 756 m 543 756 l S
+0.12 0.16 0.22 rg
+BT /F2 9 Tf 1 0 0 1 52 737 Tm (Purpose: This addendum supersedes the earlier STP v1.1 test-count and coverage figures.) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.5 Tf 1 0 0 1 52 723 Tm (Read it with the STP and its section 5.1 security-validation cases.) Tj ET
+0.12 0.16 0.22 rg
+BT /F2 11 Tf 1 0 0 1 52 696 Tm (Latest Automated Run) Tj ET
+0.10 0.20 0.36 rg 52 659 491 22 re f
+0.78 0.83 0.88 RG 0.7 w 52 681 m 52 659 l S
+1 1 1 rg
+BT /F2 7.5 Tf 1 0 0 1 57 667 Tm (Measure) Tj ET
+0.78 0.83 0.88 RG 0.7 w 157 681 m 157 659 l S
+1 1 1 rg
+BT /F2 7.5 Tf 1 0 0 1 162 667 Tm (Observed result) Tj ET
+0.78 0.83 0.88 RG 0.7 w 282 681 m 282 659 l S
+1 1 1 rg
+BT /F2 7.5 Tf 1 0 0 1 287 667 Tm (Measure) Tj ET
+0.78 0.83 0.88 RG 0.7 w 406 681 m 406 659 l S
+1 1 1 rg
+BT /F2 7.5 Tf 1 0 0 1 411 667 Tm (Observed result) Tj ET
+0.78 0.83 0.88 RG 0.7 w 543 681 m 543 659 l S
+0.78 0.83 0.88 RG 0.7 w 52 659 m 543 659 l S
+0.93 0.96 0.98 rg 52 637 491 22 re f
+0.78 0.83 0.88 RG 0.7 w 52 659 m 52 637 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 57 645 Tm (Tests executed) Tj ET
+0.78 0.83 0.88 RG 0.7 w 157 659 m 157 637 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 162 645 Tm (59) Tj ET
+0.78 0.83 0.88 RG 0.7 w 282 659 m 282 637 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 287 645 Tm (Passed / failed / skipped) Tj ET
+0.78 0.83 0.88 RG 0.7 w 406 659 m 406 637 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 411 645 Tm (59 / 0 / 0) Tj ET
+0.78 0.83 0.88 RG 0.7 w 543 659 m 543 637 l S
+0.78 0.83 0.88 RG 0.7 w 52 637 m 543 637 l S
+1 1 1 rg 52 615 491 22 re f
+0.78 0.83 0.88 RG 0.7 w 52 637 m 52 615 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 57 623 Tm (Pass rate) Tj ET
+0.78 0.83 0.88 RG 0.7 w 157 637 m 157 615 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 162 623 Tm (100%) Tj ET
+0.78 0.83 0.88 RG 0.7 w 282 637 m 282 615 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 287 623 Tm (Backend app line coverage) Tj ET
+0.78 0.83 0.88 RG 0.7 w 406 637 m 406 615 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 411 623 Tm (90.7%) Tj ET
+0.78 0.83 0.88 RG 0.7 w 543 637 m 543 615 l S
+0.78 0.83 0.88 RG 0.7 w 52 615 m 543 615 l S
+0.93 0.96 0.98 rg 52 593 491 22 re f
+0.78 0.83 0.88 RG 0.7 w 52 615 m 52 593 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 57 601 Tm (Execution time) Tj ET
+0.78 0.83 0.88 RG 0.7 w 157 615 m 157 593 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 162 601 Tm (27.81 seconds) Tj ET
+0.78 0.83 0.88 RG 0.7 w 282 615 m 282 593 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 287 601 Tm (Environment) Tj ET
+0.78 0.83 0.88 RG 0.7 w 406 615 m 406 593 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 411 601 Tm (Windows 10, Python 3.11.9, pytest 9.1.1) Tj ET
+0.78 0.83 0.88 RG 0.7 w 543 615 m 543 593 l S
+0.78 0.83 0.88 RG 0.7 w 52 593 m 543 593 l S
+1 1 1 rg 52 571 491 22 re f
+0.78 0.83 0.88 RG 0.7 w 52 593 m 52 571 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 57 579 Tm (Result) Tj ET
+0.78 0.83 0.88 RG 0.7 w 157 593 m 157 571 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 162 579 Tm (PASS) Tj ET
+0.78 0.83 0.88 RG 0.7 w 282 593 m 282 571 l S
+0.12 0.16 0.22 rg
+BT /F1 7.3 Tf 1 0 0 1 287 579 Tm (Run date) Tj ET
+0.78 0.83 0.88 RG 0.7 w 406 593 m 406 571 l S
+0.12 0.16 0.22 rg
+BT /F2 7.3 Tf 1 0 0 1 411 579 Tm (15 November 2026) Tj ET
+0.78 0.83 0.88 RG 0.7 w 543 593 m 543 571 l S
+0.78 0.83 0.88 RG 0.7 w 52 571 m 543 571 l S
+0.12 0.16 0.22 rg
+BT /F2 10.5 Tf 1 0 0 1 52 552 Tm (Coverage of the run) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.4 Tf 1 0 0 1 52 537 Tm (The 59 tests include the solver/resource suite and nine web integration tests covering UI serving,) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.4 Tf 1 0 0 1 52 524 Tm (schedule access/filtering/moves, export responses, async job polling, login failure, and HTTPS.) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.4 Tf 1 0 0 1 52 511 Tm (Detailed output is in docs/reports/summary.md, junit.xml, test-report.html, and coverage reports.) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8 Tf 1 0 0 1 52 491 Tm (Warning: one Starlette deprecation warning appeared because the installed test client uses httpx.) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8 Tf 1 0 0 1 52 478 Tm (It did not fail the run.) Tj ET
+0.12 0.16 0.22 rg
+BT /F2 10.5 Tf 1 0 0 1 52 451 Tm (Checks still outstanding) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.2 Tf 1 0 0 1 52 436 Tm (Manual keyboard/screen-reader and WCAG 2.1 AA audit; extended role and rate-limit tests;) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.2 Tf 1 0 0 1 52 423 Tm (faculty/room conflict demonstrations; manually opening exported files; and deployment uptime) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.2 Tf 1 0 0 1 52 410 Tm (monitoring remain unverified. Do not report these as passed. The health endpoint alone does not) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.2 Tf 1 0 0 1 52 397 Tm (establish 99.5% uptime, and no external security audit is claimed.) Tj ET
+0.12 0.16 0.22 rg
+BT /F2 10.5 Tf 1 0 0 1 52 370 Tm (Acceptance and traceability) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.2 Tf 1 0 0 1 52 355 Tm (Use the actual test report as evidence and keep it with the revision tested. Update the STP-to-) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 8.2 Tf 1 0 0 1 52 342 Tm (implementation matrix and retain CI results for the final PR. Rerun after any code changes.) Tj ET
+0.82 0.86 0.90 RG 0.7 w 52 38 m 543 38 l S
+0.12 0.16 0.22 rg
+BT /F1 7 Tf 1 0 0 1 52 23 Tm (STP v1.2 results addendum - supersedes earlier execution totals only) Tj ET
+0.12 0.16 0.22 rg
+BT /F1 7 Tf 1 0 0 1 500 23 Tm (Page 1) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000257 00000 n 
+0000000327 00000 n 
+0000006015 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+6090
+%%EOF
