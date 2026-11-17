@@ -27,9 +27,7 @@ Run tests from the repository root with `python -m pytest`. Generate reports wit
 - [STP v1.2 test-results addendum](docs/STP_Test_Results_v1.2.pdf)
 - [Latest generated test summary](docs/reports/summary.md)
 - [Demo recording outline](docs/DEMO_VIDEO_SCRIPTS.md)
+- [Jira board — College Timetable Generation (TTG)](https://se-mini-project.atlassian.net/jira/software/projects/TTG/boards/3?filter=&groupBy=subtask)
 
 The STP v1.2 addendum supersedes the earlier fixed test totals with the latest observed run: 59 passed, 0 failed, 0 skipped, and 90.7% backend app line coverage. Read it together with the STP v1.1 document, which contains the security-validation section 5.1. Do not claim accessibility conformance, production security certification, or deployment uptime without separate evidence.
 
-## Merged UI stories
-
-TTG-14 (8 points), TTG-15 (8), TTG-16 (5), TTG-17 (8), and TTG-18 (8) are merged in PRs #18-#21, for 37 points total. Jira is the team's sprint tracker; see Jira for actual assignees and status.
